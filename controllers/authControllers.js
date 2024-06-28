@@ -43,8 +43,8 @@ if(!user){
 bcrypt.compare(password , user.password , function(err,result){
     if(result){
         let token = generateToken(user);
-        res.cookie("token" , token);
-        res.send("you can login");
+        res.cookie("token", token);
+        res.redirect("/shop");
     }
     else{
         res.send("mail or password incorrect");

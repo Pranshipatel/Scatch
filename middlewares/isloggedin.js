@@ -9,13 +9,16 @@ module.exports = async function(req,res , next){
 
     try{
         
-      let decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
-      let user = await userModel
-      .findOne({email:decoded.email})
-      .select("-password");
-      req.user = user;
-      next();
-
+    //   let decoded = jwt.verify(req.cookies.token, process.env.JWT_KEY);
+    //   let user = await userModel
+    //   .findOne({email:decoded.email})
+    //   .select("-password");
+    //   req.user = user;
+    //   next();
+    let user =userModel.findOne({email:req.body.email});
+    let decoded=jwt.verify(req.cookies.token,process.env.JWT_KEY);
+    req.user=decoded;
+    next();
 
     }catch(err){
         req.flash("error", "something went wrong");
